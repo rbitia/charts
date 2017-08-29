@@ -72,6 +72,14 @@ minecraftServer:
   # If you adjust this, you may need to adjust resources.requests above to match.
   jvmOpts: "-Xmx512M -Xms512M"
   serviceType: LoadBalancer
+  
+  # Node labels and tolerations for pod assignment
+  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
+  tolerations:
+    - key: azure.com/aci
+      effect: NoSchedule
+  nodeSelector:
+    kubernetes.io/hostname: aci-connector
 
   rcon:
     # If you enable this, make SURE to change your password below.
@@ -87,5 +95,5 @@ persistence:
   # storageClass:
   dataDir:
     # Set this to false if you don't care to persist state between restarts.
-    enabled: true
+    enabled: false
     Size: 1Gi
